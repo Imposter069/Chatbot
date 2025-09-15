@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Doctors - Mediverse</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            background: linear-gradient(to right, #eaececbb, #02dacc);
+        }
+
+        /* Header */
+        header {
+            background-color: #333;
+            padding: 1rem 0;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .logo h1 {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav ul li {
+            list-style: none;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px;
+        }
+
+        nav ul li a:hover {
+            color: blue;
+            background: red;
+            
+    
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url("https://images.unsplash.com/photo-1504813184591-01572f98c85f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80");
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 0;
+            color: white;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 42rem;
+            margin: 0 auto 2rem;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+            padding: 0 1rem;
+        }
+
+        .search-input {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+        }
+
+        .search-input i {
+            color: rgb(107, 114, 128);
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 0.75rem;
+        }
+
+        .search-input input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .search-button {
+            background: rgb(37, 99, 235);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-button:hover {
+            background: rgb(29, 78, 216);
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            padding: 2rem 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .main-content {
+                grid-template-columns: 250px 1fr;
+            }
+        }
+
+        /* Filters */
+        .filters {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+
+        .filters h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: rgb(31, 41, 55);
+        }
+
+        .filter-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-group h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: rgb(55, 65, 81);
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-options label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgb(75, 85, 99);
+            cursor: pointer;
+        }
+
+        .filter-options input[type="checkbox"] {
+            width: 1rem;
+            height: 1rem;
+            cursor: pointer;
+        }
+
+        /* Results Section */
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .results-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: rgb(31, 41, 55);
+        }
+
+        .sort-by {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sort-by select {
+            padding: 0.5rem;
+            border: 1px solid rgb(209, 213, 219);
+            border-radius: 0.375rem;
+            color: rgb(55, 65, 81);
+        }
+
+        /* Doctor Cards */
+        .doctor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .doctor-card {
+            background: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .doctor-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .doctor-info {
+            padding: 1.5rem;
+        }
+
+        .doctor-info h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: rgb(31, 41, 55);
+            margin-bottom: 0.5rem;
+        }
+
+        .specialty {
+            color: rgb(37, 99, 235);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .rating i {
+            color: rgb(250, 204, 21);
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .rating span {
+            color: rgb(107, 114, 128);
+            font-size: 0.875rem;
+            margin-left: 0.5rem;
+        }
+
+        .experience,
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgb(75, 85, 99);
+            margin-bottom: 0.5rem;
+        }
+
+        .experience i,
+        .location i {
+            width: 1rem;
+            height: 1rem;
+            color: rgb(107, 114, 128);
+        }
+
+        .next-available {
+            color: rgb(22, 163, 74);
+            font-weight: 500;
+            margin: 1rem 0;
+        }
+
+        .book-button {
+            width: 100%;
+            background: rgb(37, 99, 235);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .book-button:hover {
+            background: rgb(29, 78, 216);
+        }
+
+        /* Load More Button */
+        .load-more {
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            margin: 2rem auto;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 2px solid rgb(6, 76, 227);
+            color: black;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background-color: rgb(102, 102, 250);
+        }
+
+        .load-more:hover {
+            background: rgb(37, 99, 235);
+            color: white;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .search-button {
+                width: 100%;
+            }
+
+            .results-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .doctor-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>Mediverse</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="project.html">Home</a></li>
+                    <li><a href="services2.html">Services</a></li>
+                    <li><a href="doctor.html">Doctors</a></li>
+                    <li><a href="about1.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="min-h-screen">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="container">
+                <h1>Find Your Doctor</h1>
+                <p>Connect with top healthcare professionals specializing in various medical fields</p>
+
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <div class="search-input">
+                        <i data-lucide="search"></i>
+                        <input type="text" placeholder="Search by name, specialty, or condition">
+                    </div>
+                    <button class="search-button">Search</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters and Results Section -->
+        <div class="container main-content">
+            <!-- Filters -->
+            <aside class="filters">
+                <h2>Filters</h2>
+                <div class="filter-group">
+                    <h3>Specialty</h3>
+                    <div class="filter-options">
+                        <label><input type="checkbox"> Primary Care</label>
+                        <label><input type="checkbox"> Cardiology</label>
+                        <label><input type="checkbox"> Neurology</label>
+                        <label><input type="checkbox"> Pediatrics</label>
+                        <label><input type="checkbox"> Orthopedics</label>
+                        <label><input type="checkbox"> Dermatology</label>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3>Availability</h3>
+                    <div class="filter-options">
+                        <label><input type="checkbox"> Available Today</label>
+                        <label><input type="checkbox"> Next 3 Days</label>
+                        <label><input type="checkbox"> This Week</label>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3>Gender</h3>
+                    <div class="filter-options">
+                        <label><input type="checkbox"> Male</label>
+                        <label><input type="checkbox"> Female</label>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3>Language</h3>
+                    <div class="filter-options">
+                        <label><input type="checkbox"> English</label>
+                        <label><input type="checkbox"> Spanish</label>
+                        <label><input type="checkbox"> French</label>
+                        <label><input type="checkbox"> Mandarin</label>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Results -->
+            <main class="results">
+                <div class="results-header">
+                    <h2>Available Doctors</h2>
+                    <div class="sort-by">
+                        <label>Sort by:</label>
+                        <select>
+                            <option>Relevance</option>
+                            <option>Next Available</option>
+                            <option>Experience</option>
+                            <option>Rating</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Doctor Cards -->
+                <div class="doctor-grid">
+                    <div class="doctor-card">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+                            alt="Dr. Sarah Johnson">
+                        <div class="doctor-info">
+                            <h3>Dr. Sarah Johnson</h3>
+                            <p class="specialty">Cardiologist</p>
+                            <div class="rating">
+                                <i data-lucide="star"></i>
+                                <i data-lucide="star"></i>
+                                <i data-lucide="star"></i>
+                                <i data-lucide="star"></i>
+                                <i data-lucide="star"></i>
+                                <span>5.0 (128 reviews)</span>
+                            </div>
+                            <p class="experience"><i data-lucide="briefcase"></i> 15 years experience</p>
+                            <p class="location"><i data-lucide="map-pin"></i> Central Hospital</p>
+                            <p class="next-available">Next Available: Today</p>
+                            <button class="book-button">Book Appointment</button>
+                        </div>
+                    </div>
+
+                    <div class="doctor-card">
+                        <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+                            alt="Dr. Michael Chen">
+                        <div class="doctor-info">
+                            <h3>Dr. Michael Chen</h3>
+                            <p class="specialty">Neurologist</p>
+                            <div class="rating">
+                                <i data-lucide="star"></i>
+                                <i data-lucide="star"></i>
+                                <i data-lucide="star"></i>
+                                <i data-lucide="star"></i>
+                                <i data-lucide="star-half"></i>
+                                <span>4.5 (96 reviews)</span>
+                            </div>
+                            <p class="experience"><i data-lucide="briefcase"></i> 12 years experience</p>
+                            <p class="location"><i data-lucide="map-pin"></i> Neuroscience Center</p>
+                            <p class="next-available">Next Available: Tomorrow</p>
+                            <button class="book-button">Book Appointment</button>
+                        </div>
+                    </div>
+
+                    <div class="doctor-card">
+                        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+                            alt="Dr. Emily Martinez">
+                        <div class="doctor-info">
+                            <h3>Dr. Emily Martinez</h3>
+                            <p class="specialty">Pediatrician</p>
+                            <div class="rating">
+                                <i data-lucide="star"></i>
+                                <i data-lucide="star"></i>
+                                <i data-lucide="star"></i>
+                                <i data-lucide="star"></i>
+                                <i data-lucide="star"></i>
+                                <span>5.0 (156 reviews)</span>
+                            </div>
+                            <p class="experience"><i data-lucide="briefcase"></i> 8 years experience</p>
+                            <p class="location"><i data-lucide="map-pin"></i> Children's Medical</p>
+                            <p class="next-available">Next Available: Today</p>
+                            <button class="book-button">Book Appointment</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Load More -->
+                <button class="load-more">Load More Doctors</button>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

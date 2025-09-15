@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mediverse - Contact Us</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(to right, #eaececbb, #02dacc);
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .container {
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .nav {
+            background-color: black;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 4rem;
+
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: right;
+            gap: 40rem;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-img {
+            height: 2rem;
+            width: 2rem;
+        }
+
+        .logo-text {
+            color: blue;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: none;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: blue;
+            background-color: red;
+            border-radius: 5px;
+        }
+
+        .nav-right {
+            display: none;
+        }
+
+        .appointment-btn {
+            background-color: rgb(15, 118, 110);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .appointment-btn:hover {
+            background-color: rgb(17, 94, 89);
+        }
+
+        .mobile-menu-btn {
+            color: white;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            padding: 0.5rem;
+            background-color: rgb(13, 148, 136);
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-link {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem;
+        }
+
+        .mobile-link:hover {
+            background-color: rgb(15, 118, 110);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 40vh;
+            background: linear-gradient(to right, rgb(13, 148, 136), rgb(16, 185, 129));
+            overflow: hidden;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 0 1rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-logo {
+            height: 3rem;
+            width: 3rem;
+        }
+
+        .hero-logo-text {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgb(240, 253, 250);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        /* Contact Cards */
+        .contact-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon {
+            height: 3rem;
+            width: 3rem;
+            border-radius: 0.5rem;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-text {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .card-highlight {
+            color: rgb(13, 148, 136);
+            font-weight: 600;
+        }
+
+        .hours-list {
+            color: #666;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        /* Contact Form */
+        .form-container {
+            width: 100%;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #4b5563;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: rgb(13, 148, 136);
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+        }
+
+        .form-group textarea {
+            resize: none;
+        }
+
+        .submit-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background-color: rgb(13, 148, 136);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.125rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: rgb(15, 118, 110);
+        }
+
+        .submit-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.2);
+        }
+
+        /* Location Section */
+        .location-section {
+            margin-top: 4rem;
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .location-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .location-icon {
+            height: 3rem;
+            width: 3rem;
+            border-radius: 0.5rem;
+            object-fit: cover;
+        }
+
+        .location-info {
+            flex: 1;
+        }
+
+        .location-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .location-address {
+            color: #666;
+        }
+
+        .location-image {
+            margin-top: 1.5rem;
+            height: 300px;
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+
+        .location-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+                gap: 2rem;
+            }
+
+            .nav-right {
+                display: block;
+            }
+
+            .mobile-menu-btn {
+                display: none;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr 2fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-content">
+                    <div class="nav-left">
+                        <span class="logo-text">Mediverse</span>
+                        <div class="nav-links">
+                            <a href="project.html" class="nav-link">Home</a>
+                            <a href="services2.html" class="nav-link">Services</a>
+                            <a href="about1.html" class="nav-link">About</a>
+                            <a href="doctor.html" class="nav-link">Doctors</a>
+                            <a href="contact.html" class="nav-link">Contact</a>
+                        </div>
+                    </div>
+
+                    <button class="mobile-menu-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="mobile-menu">
+                    <a href="#" class="mobile-link">Home</a>
+                    <a href="#" class="mobile-link">Services</a>
+                    <a href="#" class="mobile-link">About</a>
+                    <a href="#" class="mobile-link">Doctors</a>
+                    <a href="#" class="mobile-link">Contact</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+
+                <h2 class="hero-title">Get in Touch</h2>
+                <p class="hero-subtitle">We're here to help you with any questions about our healthcare services</p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-grid">
+                <!-- Contact Cards -->
+                <div class="contact-cards">
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&q=80&w=100"
+                            alt="Phone support" class="card-icon">
+                        <h3 class="card-title">Call Us</h3>
+                        <p class="card-text">Available 24/7 for emergencies</p>
+                        <p class="card-highlight">+1 (555) 123-4567</p>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1596524430615-b46475ddff6e?auto=format&fit=crop&q=80&w=100"
+                            alt="Email contact" class="card-icon">
+                        <h3 class="card-title">Email Us</h3>
+                        <p class="card-text">We'll respond within 24 hours</p>
+                        <p class="card-highlight">contact@Mediverse.com</p>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?auto=format&fit=crop&q=80&w=100"
+                            alt="Working hours" class="card-icon">
+                        <h3 class="card-title">Working Hours</h3>
+                        <div class="hours-list">
+                            <p>Monday - Friday: 8:00 AM - 8:00 PM</p>
+                            <p>Saturday: 9:00 AM - 5:00 PM</p>
+                            <p>Sunday: Emergency Only</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="form-container">
+                    <div class="form-card">
+                        <h3 class="form-title">Send us a Message</h3>
+                        <form id="contactForm" class="contact-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="name">Full Name</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Your Message</label>
+                                <textarea id="message" name="message" rows="6" required></textarea>
+                            </div>
+                            <button type="submit" class="submit-button">
+                                <span>Send Message</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location Section -->
+            <div class="location-section">
+                <div class="location-header">
+                    <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&q=80&w=100"
+                        alt="Location pin" class="location-icon">
+                    <div class="location-info">
+                        <h3 class="location-title">Visit Our Location</h3>
+                        <p class="location-address">
+                            123 Healthcare Avenue<br>
+                            New York, NY 10001<br>
+                            United States
+                        </p>
+                    </div>
+                </div>
+                <div class="location-image">
+                    <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&q=80&w=2000"
+                        alt="Hospital building">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
