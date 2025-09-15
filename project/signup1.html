@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+            max-width: 300px;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: black;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: rgba(33, 30, 30, 0.806);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #6874ff;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        .otp-group {
+            display: none;
+        }
+
+        /* Emergency Button Styling */
+        .emergency-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff4c4c;
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .emergency-button:hover {
+            background: #d43d3d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Sign-Up</h2>
+        <form id="signupForm">
+            <div class="input-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your full name">
+            </div>
+            <div class="input-group">
+                <label for="mobile">Mobile Number:</label>
+                <input type="tel" id="mobile" name="mobile" required placeholder="Enter your mobile number" pattern="[0-9]{10}">
+            </div>
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+            <div class="input-group">
+                <button type="button" id="sendOtpBtn">Send OTP</button>
+            </div>
+            <div class="input-group otp-group" style="display: none;">
+                <label for="otp">OTP:</label>
+                <input type="text" id="otp" name="otp" required placeholder="Enter the OTP">
+            </div>
+            <div class="input-group">
+                <button type="submit" id="signupBtn">Sign Up</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Emergency Care Button -->
+    <a href="tel:911" class="emergency-button">Emergency Care</a>
+
+    <script src="otp.js"></script>
+</body>
+</html>
